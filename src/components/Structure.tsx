@@ -40,7 +40,7 @@ export default function Structure() {
         </Reveal>
       </div>
 
-      <motion.div className="structure-rail" style={{ x: smoothX }}>
+      <motion.div className="structure-rail" style={{ x: smoothX }} data-cursor="drag">
         {ITEMS.map((item, i) => (
           <motion.figure
             className="structure-item"

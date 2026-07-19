@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import Reveal from './Reveal'
 import Counter from './Counter'
 import BrazilMap from './BrazilMap'
+import { Magnetic, Spotlight } from './Interactive'
 import { ArrowRight, Pin, Shield, Users, Weight } from './Icons'
 
 const STATS = [
@@ -15,6 +16,7 @@ export default function Impact() {
   return (
     <section id="atuacao" className="impact">
       <div className="stats">
+        <Spotlight />
         <div className="stats-inner">
           <Reveal>
             <span className="eyebrow">Números que comprovam</span>
@@ -71,10 +73,12 @@ export default function Impact() {
               </div>
             </div>
 
-            <a href="#contato" className="btn btn-green" style={{ marginTop: 26 }}>
-              Ver onde atuamos
-              <ArrowRight />
-            </a>
+            <Magnetic>
+              <a href="#contato" className="btn btn-green" style={{ marginTop: 26 }}>
+                Ver onde atuamos
+                <ArrowRight />
+              </a>
+            </Magnetic>
           </Reveal>
         </div>
       </div>

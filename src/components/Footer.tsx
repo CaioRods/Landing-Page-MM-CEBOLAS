@@ -29,6 +29,7 @@ export default function Footer() {
             <h4>Navegação</h4>
             <a href="#inicio">Início</a>
             <a href="#quem-somos">Quem Somos</a>
+            <a href="#marca">A Marca</a>
             <a href="#produtos">Produtos</a>
             <a href="#processo">Processo</a>
           </div>

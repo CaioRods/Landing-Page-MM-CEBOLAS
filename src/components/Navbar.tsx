@@ -6,6 +6,7 @@ import { ArrowRight } from './Icons'
 const LINKS = [
   { href: '#inicio', label: 'Início' },
   { href: '#quem-somos', label: 'Quem Somos' },
+  { href: '#marca', label: 'A Marca' },
   { href: '#produtos', label: 'Produtos' },
   { href: '#processo', label: 'Processo' },
   { href: '#atuacao', label: 'Atuação' },
@@ -14,7 +15,7 @@ const LINKS = [
   { href: '#contato', label: 'Contato' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ onOpenQuote }: { onOpenQuote: () => void }) {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
@@ -80,10 +81,10 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <a href="#contato" className="btn btn-orange nav-cta">
+          <button className="btn btn-orange nav-cta" onClick={onOpenQuote}>
             Solicitar Orçamento
             <ArrowRight />
-          </a>
+          </button>
 
           <button
             className={`nav-toggle ${open ? 'open' : ''}`}
@@ -101,10 +102,10 @@ export default function Navbar() {
             {l.label}
           </a>
         ))}
-        <a href="#contato" className="btn btn-orange" onClick={() => setOpen(false)}>
+        <button className="btn btn-orange" style={{ margin: '0 20px', width: 'calc(100% - 40px)', justifyContent: 'center' }} onClick={() => { setOpen(false); onOpenQuote(); }}>
           Solicitar Orçamento
           <ArrowRight />
-        </a>
+        </button>
       </div>
     </>
   )

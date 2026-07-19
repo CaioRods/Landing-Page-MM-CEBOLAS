@@ -239,7 +239,7 @@ section { position: relative; }
 .nav-links a.active::after { width: 100%; }
 .nav-links a.active { color: var(--white); }
 
-.nav-cta { padding: 13px 24px; font-size: 0.7rem; }
+.nav-cta { padding: 13px 24px; font-size: 0.7rem; white-space: nowrap; flex-shrink: 0; }
 
 .nav-toggle {
   display: none;
@@ -288,6 +288,132 @@ section { position: relative; }
 }
 
 .nav-mobile .btn { margin-top: 22px; }
+
+/* ============================================================
+   CURSOR CUSTOMIZADO
+   ============================================================ */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+.cursor-dot {
+  width: 7px; height: 7px;
+  background: var(--orange);
+}
+
+.cursor-ring {
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgba(232, 163, 61, 0.7);
+  backdrop-filter: invert(2%);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+
+.cursor-ring.cursor-hover { background: rgba(232, 163, 61, 0.12); }
+
+.cursor-ring.cursor-media,
+.cursor-ring.cursor-drag {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.cursor-label {
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--green-900);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   INTERAÇÕES (magnético, tilt, spotlight)
+   ============================================================ */
+.magnetic { display: inline-block; }
+
+.tilt-scene { perspective: 900px; }
+.tilt { position: relative; will-change: transform; transform-style: preserve-3d; }
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  mix-blend-mode: overlay;
+}
+
+.tilt:hover .tilt-glare { opacity: 1; }
+
+.spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stats-inner,
+.process .container { position: relative; z-index: 1; }
+
+/* Numeração do card de produto */
+.product-img { position: relative; }
+
+.product-index {
+  position: absolute;
+  top: 12px; right: 14px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  background: rgba(6, 33, 15, 0.55);
+  backdrop-filter: blur(6px);
+  padding: 5px 9px;
+  border-radius: 6px;
+}
+
+/* Intro: barra e porcentagem */
+.intro-bar {
+  display: block;
+  width: 150px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.intro-bar-fill {
+  display: block;
+  width: 100%; height: 100%;
+  background: var(--orange);
+  transform-origin: left center;
+}
+
+.intro-pct {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Mapa interativo */
+.br-node { transition: r 0.25s var(--ease); }
+.br-node.is-hover { fill: var(--green-700); }
+.br-tip-bg { fill: var(--green-800); }
+.br-tip {
+  fill: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 
 /* ============================================================
    EFEITOS CINEMATOGRÁFICOS GLOBAIS
@@ -388,9 +514,18 @@ section { position: relative; }
 }
 
 /* Imagem com wipe + parallax */
-.reveal-img { overflow: hidden; }
-.reveal-img-inner { width: 100%; height: 100%; overflow: hidden; }
-.reveal-img-inner img { width: 100%; height: 100%; object-fit: cover; }
+.reveal-img { position: relative; overflow: hidden; }
+.reveal-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Cortina de revelação — recolhe para cima usando transform (GPU) */
+.wipe-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--cream);
+  transform-origin: top center;
+  pointer-events: none;
+}
 
 /* Navbar que se esconde ao descer */
 .nav-hidden { transform: translateY(-115%); }
@@ -631,7 +766,6 @@ section { position: relative; }
 }
 
 .about-media img { width: 100%; height: 100%; object-fit: cover; }
-.about-media-wipe { width: 100%; height: 100%; overflow: hidden; }
 
 .about-badge {
   position: absolute;
@@ -685,6 +819,203 @@ section { position: relative; }
   font-size: 0.74rem;
   font-weight: 700;
   color: var(--ink-700);
+}
+
+/* ============================================================
+   SOBRE A MARCA
+   ============================================================ */
+.brand { padding: 110px 0; background: var(--cream); }
+
+.brand-head { max-width: 760px; margin-bottom: 68px; }
+.brand-head .heading { margin: 14px 0 18px; }
+.brand-lead { max-width: 640px; }
+
+.brand-h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--green-800);
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.brand-sub { font-size: 0.9rem; margin-bottom: 26px; }
+
+/* --- Símbolo --- */
+.brand-symbol {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 64px;
+  align-items: center;
+  padding-bottom: 80px;
+  margin-bottom: 72px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand-logo-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.9), transparent 62%),
+    linear-gradient(150deg, var(--cream-200), var(--cream-300));
+  border: 1px solid var(--cream-300);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.32);
+}
+
+.brand-logo-card img {
+  width: 58%;
+  border-radius: 20px;
+  box-shadow: 0 18px 42px -14px rgba(0, 0, 0, 0.4);
+}
+
+.brand-list { display: flex; flex-direction: column; gap: 24px; margin-top: 8px; }
+
+.brand-list li {
+  padding-left: 20px;
+  border-left: 2px solid var(--orange);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.brand-list strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+
+/* --- Paleta --- */
+.brand-palette-block { margin-bottom: 76px; }
+
+.brand-palette {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.brand-swatch {
+  position: relative;
+  text-align: left;
+  padding: 26px 20px 22px;
+  border-radius: 14px;
+  min-height: 168px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+.brand-swatch:hover,
+.brand-swatch.is-active {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 44px -20px rgba(0, 0, 0, 0.4);
+}
+
+.brand-swatch-role {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.brand-swatch-name { font-size: 1rem; font-weight: 800; }
+
+.brand-swatch-hex {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.brand-meaning {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 22px;
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  min-height: 96px;
+}
+
+.brand-meaning-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.brand-meaning p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.brand-meaning strong {
+  display: block;
+  font-size: 0.98rem;
+  color: var(--green-800);
+  margin-bottom: 4px;
+}
+
+/* --- Por que minimalismo --- */
+.brand-principles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 26px;
+}
+
+.brand-principle {
+  padding: 28px 22px;
+  border-radius: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  transition: all 0.45s var(--ease);
+}
+
+.brand-principle:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 40px -20px rgba(0, 0, 0, 0.25);
+}
+
+.brand-principle-n {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--cream-300);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.brand-principle h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--green-800);
+  margin-bottom: 8px;
+}
+
+.brand-principle p { font-size: 0.84rem; line-height: 1.6; color: var(--muted); }
+
+@media (max-width: 1100px) {
+  .brand-symbol { grid-template-columns: 1fr; gap: 40px; }
+  .brand-logo-card { max-width: 380px; }
+  .brand-palette { grid-template-columns: repeat(2, 1fr); }
+  .brand-principles { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .brand { padding: 76px 0; }
+  .brand-palette { grid-template-columns: 1fr; }
+  .brand-principles { grid-template-columns: 1fr; }
 }
 
 /* ============================================================
@@ -1291,9 +1622,76 @@ section { position: relative; }
 @media (max-width: 480px) {
   .products-grid { grid-template-columns: 1fr; }
   .quality-grid { grid-template-columns: 1fr; }
+  .form-row { flex-direction: column; gap: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-line::after { animation: none; }
   html { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   QUOTE MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(4, 21, 9, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-content {
+  background: var(--green-900);
+  border: 1px solid var(--line-light);
+  border-radius: 20px;
+  width: 100%; max-width: 500px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.modal-close {
+  position: absolute; top: 20px; right: 20px;
+  background: transparent; border: none;
+  color: var(--muted); cursor: pointer;
+  padding: 8px; border-radius: 50%;
+  transition: all 0.2s var(--ease);
+}
+.modal-close:hover { background: rgba(255, 255, 255, 0.1); color: var(--white); }
+.modal-header h3 { font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.modal-header p { color: var(--muted); font-size: 0.9rem; margin-bottom: 30px; }
+
+.modal-options { display: flex; gap: 16px; margin-bottom: 20px; }
+.modal-option {
+  flex: 1; padding: 20px;
+  background: var(--green-800);
+  border: 1.5px solid var(--line-light);
+  border-radius: 12px; cursor: pointer;
+  text-align: center; transition: all 0.3s var(--ease);
+}
+.modal-option:hover { border-color: var(--green-600); }
+.modal-option.active { border-color: var(--orange); background: rgba(232, 163, 61, 0.15); }
+.modal-option strong { display: block; font-size: 1.1rem; color: var(--white); margin-bottom: 4px; }
+.modal-option span { font-size: 0.8rem; color: var(--muted); }
+
+.modal-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: flex; gap: 16px; width: 100%; }
+.form-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.form-group input, .form-group select {
+  width: 100%;
+  background: var(--green-800);
+  border: 1px solid var(--line-light);
+  padding: 12px 16px; border-radius: 8px;
+  color: var(--white); font-family: inherit; font-size: 0.95rem;
+  transition: border-color 0.3s var(--ease);
+}
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--orange); }
+.modal-footer { margin-top: 30px; display: flex; gap: 12px; justify-content: flex-end; }
+.modal-success { text-align: center; padding: 40px 0; }
+.modal-success-icon { 
+  width: 64px; height: 64px; background: var(--green-600); color: var(--white); 
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px; font-size: 24px;
 }

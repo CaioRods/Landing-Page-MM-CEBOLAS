@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
+import { Magnetic } from './Interactive'
 import { ArrowRight, Play } from './Icons'
 
 /* Espera a cortina da abertura abrir antes de revelar o conteúdo */
@@ -125,14 +126,18 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: T + 1.0 }}
         >
-          <a href="#quem-somos" className="btn btn-green">
-            Conheça a empresa
-            <ArrowRight />
-          </a>
-          <a href="#contato" className="btn btn-outline-light">
-            Solicite um orçamento
-            <ArrowRight />
-          </a>
+          <Magnetic>
+            <a href="#quem-somos" className="btn btn-green">
+              Conheça a empresa
+              <ArrowRight />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href="#contato" className="btn btn-outline-light">
+              Solicite um orçamento
+              <ArrowRight />
+            </a>
+          </Magnetic>
         </motion.div>
       </motion.div>
 

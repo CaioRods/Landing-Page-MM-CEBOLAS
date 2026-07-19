@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
+import Curtain from './Curtain'
 
 interface RevealImageProps {
   src: string
@@ -10,11 +11,10 @@ interface RevealImageProps {
   delay?: number
 }
 
-const EASE = [0.76, 0, 0.24, 1] as const
-
 /*
- * Imagem que entra com um "wipe" (cortina que sobe) e faz parallax lento
- * dentro da própria moldura enquanto a página rola.
+ * Imagem que entra com uma cortina recolhendo para cima e faz parallax lento
+ * dentro da moldura enquanto a página rola. A cortina usa transform (GPU) —
+ * clip-path não anima de forma confiável nesta versão do motion.
  */
 export default function RevealImage({
   src,
@@ -29,20 +29,13 @@ export default function RevealImage({
 
   return (
     <div className={`reveal-img ${className}`} ref={ref}>
-      <motion.div
-        className="reveal-img-inner"
-        initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
-        whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1.2, delay, ease: EASE }}
-      >
-        <motion.img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          style={{ y, scale: parallax ? 1 + parallax / 50 : 1 }}
-        />
-      </motion.div>
+      <motion.img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        style={{ y, scale: parallax ? 1 + parallax / 50 : 1 }}
+      />
+      <Curtain delay={delay} />
     </div>
   )
 }

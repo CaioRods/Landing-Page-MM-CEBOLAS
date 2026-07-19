@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 
 /* Contorno real do Brasil (GeoJSON projetado para viewBox 400x430) */
@@ -37,6 +37,7 @@ function curve(from: { x: number; y: number }, to: { x: number; y: number }) {
 
 export default function BrazilMap() {
   const ref = useRef<HTMLDivElement>(null)
+  const [hover, setHover] = useState<string | null>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start 0.9', 'end 0.5'],
@@ -66,20 +67,40 @@ export default function BrazilMap() {
         ))}
 
         {NODES.map((n, i) => (
-          <motion.circle
+          <motion.g
             key={`n-${n.city}`}
-            className="br-node"
-            cx={n.x}
-            cy={n.y}
-            r={3.2}
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.55 + i * 0.06 }}
             style={{ transformOrigin: `${n.x}px ${n.y}px` }}
+            onPointerEnter={() => setHover(n.city)}
+            onPointerLeave={() => setHover(null)}
           >
-            <title>{n.city}</title>
-          </motion.circle>
+            {/* Alvo invisível maior, para facilitar o hover */}
+            <circle cx={n.x} cy={n.y} r={11} fill="transparent" style={{ cursor: 'pointer' }} />
+            <circle
+              className={`br-node ${hover === n.city ? 'is-hover' : ''}`}
+              cx={n.x}
+              cy={n.y}
+              r={hover === n.city ? 5 : 3.2}
+            />
+            {hover === n.city && (
+              <>
+                <rect
+                  className="br-tip-bg"
+                  x={n.x - n.city.length * 3.1 - 7}
+                  y={n.y - 26}
+                  width={n.city.length * 6.2 + 14}
+                  height={17}
+                  rx={4}
+                />
+                <text className="br-tip" x={n.x} y={n.y - 14} textAnchor="middle">
+                  {n.city}
+                </text>
+              </>
+            )}
+          </motion.g>
         ))}
 
         {/* Sede pulsante */}

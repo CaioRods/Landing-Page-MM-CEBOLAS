@@ -15,7 +15,7 @@ export default function VideoCTA() {
   return (
     <section id="video" className="videocta">
       <div className="container">
-        <div className="videocta-box" ref={ref}>
+        <div className="videocta-box" ref={ref} data-cursor="media" data-cursor-label="ASSISTIR">
           <motion.img src="/img/campo-linhas.jpg" alt="" style={{ scale, y }} />
           <div className="videocta-scrim" />
 

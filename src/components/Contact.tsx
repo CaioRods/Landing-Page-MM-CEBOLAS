@@ -1,4 +1,5 @@
 import Reveal from './Reveal'
+import { Magnetic } from './Interactive'
 import { ArrowRight, Clock, Mail, Phone, Pin } from './Icons'
 
 export default function Contact() {
@@ -44,10 +45,12 @@ export default function Contact() {
               </div>
             </div>
 
-            <a href="#contato" className="btn btn-orange">
-              Solicitar orçamento
-              <ArrowRight />
-            </a>
+            <Magnetic>
+              <a href="#contato" className="btn btn-orange">
+                Solicitar orçamento
+                <ArrowRight />
+              </a>
+            </Magnetic>
           </Reveal>
         </div>
 

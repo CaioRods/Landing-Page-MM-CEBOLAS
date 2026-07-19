@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import Reveal from './Reveal'
 import SplitText from './SplitText'
+import Curtain from './Curtain'
 import { ArrowRight, Box, Cart, Gear, Sort, Truck } from './Icons'
 
 const STEPS = [
@@ -22,19 +23,13 @@ export default function About() {
     <section id="quem-somos" className="about">
       <div className="container about-grid">
         <div className="about-media" ref={ref}>
-          <motion.div
-            className="about-media-wipe"
-            initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
-            whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 1.25, ease: [0.76, 0, 0.24, 1] }}
-          >
-            <motion.img
-              src="/img/campo-aereo.jpg"
-              alt="Estrutura da M&M Cebolas"
-              style={{ y: imgY, scale: 1.18 }}
-            />
-          </motion.div>
+          <motion.img
+            src="/img/campo-aereo.jpg"
+            alt="Estrutura da M&M Cebolas"
+            style={{ y: imgY, scale: 1.18 }}
+          />
+          {/* Cortina que recolhe para cima, revelando a imagem */}
+          <Curtain />
           <motion.div
             className="about-badge"
             initial={{ opacity: 0, y: 20 }}

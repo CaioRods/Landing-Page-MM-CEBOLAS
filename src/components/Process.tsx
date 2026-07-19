@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useSpring } from 'motion/react'
 import Reveal from './Reveal'
 import SplitText from './SplitText'
+import { Spotlight } from './Interactive'
 import { Box, Cart, CheckBadge, Droplet, Gear, Sort, Truck } from './Icons'
 
 const STEPS = [
@@ -25,6 +26,7 @@ export default function Process() {
 
   return (
     <section id="processo" className="process">
+      <Spotlight />
       <div className="container">
         <div className="process-head">
           <Reveal><span className="eyebrow">Nosso Processo</span></Reveal>
