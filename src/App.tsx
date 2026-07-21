@@ -16,6 +16,7 @@ import Footer from './components/Footer'
 import { FilmLayer, Marquee, ScrollProgress } from './components/ScrollFX'
 import Cursor from './components/Cursor'
 import QuoteModal from './components/QuoteModal'
+import SafraBadge from './components/SafraBadge'
 
 function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
@@ -51,6 +52,7 @@ function App() {
       </main>
       <Footer />
       <FilmLayer />
+      <SafraBadge />
     </>
   )
 }

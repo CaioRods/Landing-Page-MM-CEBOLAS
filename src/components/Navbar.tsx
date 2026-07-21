@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import logo from '../assets/logo.png'
 import { ArrowRight } from './Icons'
-import SafraBadge from './SafraBadge'
 
 const LINKS = [
   { href: '#inicio', label: 'Início' },
@@ -81,8 +80,6 @@ export default function Navbar({ onOpenQuote }: { onOpenQuote: () => void }) {
               </a>
             ))}
           </nav>
-
-          <SafraBadge />
 
           <button className="btn btn-orange nav-cta" onClick={onOpenQuote}>
             Solicitar Orçamento
