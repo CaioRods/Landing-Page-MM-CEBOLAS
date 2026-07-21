@@ -241,6 +241,53 @@ section { position: relative; }
 
 .nav-cta { padding: 13px 24px; font-size: 0.7rem; white-space: nowrap; flex-shrink: 0; }
 
+.safra-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 100px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.safra-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.safra-badge.safra-ativa {
+  background: rgba(20, 83, 43, 0.08);
+  color: var(--green-600);
+  border-color: rgba(20, 83, 43, 0.2);
+}
+.safra-badge.safra-ativa .safra-dot {
+  background: var(--green-500);
+  box-shadow: 0 0 0 0 rgba(26, 107, 56, 0.5);
+  animation: safra-pulse 2s infinite;
+}
+.safra-badge.safra-inativa {
+  background: rgba(122, 116, 105, 0.08);
+  color: var(--muted);
+}
+.safra-badge.safra-inativa .safra-dot {
+  background: var(--muted);
+}
+@keyframes safra-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(26, 107, 56, 0.45); }
+  70% { box-shadow: 0 0 0 6px rgba(26, 107, 56, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(26, 107, 56, 0); }
+}
+@media (max-width: 860px) {
+  .safra-badge { display: none; }
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
